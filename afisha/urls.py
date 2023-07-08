@@ -17,10 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from amazing_city.views import index
+from places.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('city', include('amazing_city.urls')),
+    path('city', include('places.urls')),
     path('', index),
 ]
