@@ -3,8 +3,8 @@ from django.shortcuts import render
 
 
 def index(request):
-    st1 = "{% static 'static/moscow_legends.json' %}"
-    payload = {"points": {
+
+    payload = {"places": {
         "type": "FeatureCollection",
         "features": [
             {
