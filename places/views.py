@@ -1,34 +1,30 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from places.models import Place
+
 
 def index(request):
-
+    places = Place.objects.all()
+    features = []
+    for place in places:
+        feature = {
+            'type': 'Feature',
+            'geometry':{
+                'type': 'Point',
+                'coordinates': [place.lng, place.lat]
+            },
+            'properties': {
+                'title': place.title,
+                'placeId': place.id,
+                'detailUrl':''
+            }
+        }
+        features.append(feature)
     payload = {"places": {
         "type": "FeatureCollection",
-        "features": [
-            {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [37.62, 55.793676]
-                },
-                "properties": dict(title="«Легенды Москвы", placeId="moscow_legends",
-                                   detailsUrl="static/moscow_legends.json")
-            },
-            {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [37.64, 55.753676]
-                },
-                "properties": {
-                    "title": "Крыши24.рф",
-                    "placeId": "roofs24",
-                    "detailsUrl": "static/roofs24.json"
-                }
-            }
-        ]
-    }}
+        "features": features
+        }
+    }
 
     return render(request, 'places/index.html', context=payload)
