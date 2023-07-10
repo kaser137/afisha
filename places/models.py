@@ -10,3 +10,15 @@ class Place(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Image(models.Model):
+    place = models.ForeignKey(Place, verbose_name='Место', related_name='places', on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(verbose_name='позиция', default=0, db_index=True)
+    img = models.ImageField()
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f'{self.order} {self.place.title}'
