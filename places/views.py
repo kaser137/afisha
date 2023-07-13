@@ -30,7 +30,7 @@ def index(request):
     return render(request, 'places/index.html', context=payload)
 
 
-def place_detail_view(reqest, place_id):
+def place_detail_view(request, place_id):
     place = get_object_or_404(Place, id=place_id)
     place_details = dict(
         title=place.title,
