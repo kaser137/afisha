@@ -9,6 +9,9 @@ class Place(models.Model):
     lng = models.FloatField(verbose_name='Долгота')
     lat = models.FloatField(verbose_name='Широта')
 
+    class Meta:
+        unique_together = [['title', 'lng', 'lat']]
+
     def __str__(self):
         return self.title
 
