@@ -47,6 +47,7 @@ python3 manage.py createsuperuser
 python3 manage.py load_place <place's_json_file_url>
 ```
 где place's_json_file_url - адрес к json файлу с данными о месте (их может быть несколько, разделяйте пробелом).
+[Пример json файла](https://raw.githubusercontent.com/devmanorg/where-to-go-frontend/master/places/moscow_legends.json)
 
 ## Цели проекта
 
