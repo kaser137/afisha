@@ -21,10 +21,12 @@ def index(request):
             }
         }
         features.append(feature)
-    payload = {"places": {
-        "type": "FeatureCollection",
-        "features": features
-    }
+
+    payload = {
+        'places': {
+            'type': 'FeatureCollection',
+            'features': features
+        }
     }
 
     return render(request, 'places/index.html', context=payload)
@@ -32,14 +34,14 @@ def index(request):
 
 def place_detail_view(request, place_id):
     place = get_object_or_404(Place, id=place_id)
-    place_details = dict(
-        title=place.title,
-        imgs=[image.img.url for image in place.images.all()],
-        description_short=place.description_short,
-        description_long=place.description_long,
-        coordinates=dict(
-            lng=place.lng,
-            lat=place.lat,
-        )
-    )
+    place_details = {
+        'title': place.title,
+        'imgs': [image.img.url for image in place.images.all()],
+        'description_short': place.description_short,
+        'description_long': place.description_long,
+        'coordinates': {
+            'lng': place.lng,
+            'lat': place.lat,
+        },
+    }
     return JsonResponse(place_details, json_dumps_params={'ensure_ascii': False, 'indent': 4})

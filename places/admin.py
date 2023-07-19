@@ -5,20 +5,18 @@ from django.utils.html import format_html
 from places.models import Place, Image
 
 
-admin.site.register(Image)
-
-
 class ImageInline(SortableInlineAdminMixin, admin.StackedInline):
     model = Image
     raw_id_fields = ('place',)
     extra = 0
 
     @staticmethod
-    def preview(obj):
-        return format_html('<img src="{}" style="max-height: {}px;" />',
-                           obj.img.url,
-                           200,
-                           )
+    def preview(image: Image):
+        return format_html(
+            '<img src="{}" style="max-height: {}px;" />',
+            image.img.url,
+            200
+        )
 
     readonly_fields = ['preview']
     fields = ('order', 'img', 'preview')
@@ -31,3 +29,8 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     search_fields = ['title', ]
     fields = (('title', 'lng', 'lat'), 'description_short', 'description_long')
     ordering = ['id']
+
+
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    pass
